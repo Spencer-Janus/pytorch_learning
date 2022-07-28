@@ -56,6 +56,12 @@ TensorDataset(*data_arrays)
 
 accumulator中*为收集元素
 **为收集字典
+zip函数
+>>> a = [1,2,3]
+>>> b = [4,5,6]
+>>> c = [4,5,6,7,8]
+>>> zipped = zip(a,b)     # 打包为元组的列表
+[(1, 4), (2, 5), (3, 6)]
 '''
 
 
