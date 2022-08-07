@@ -37,13 +37,15 @@ def train(lambd):
     
     print('w的L2范数是：', torch.norm(w).item())
 train(lambd=0)                         
+#简洁实现
 def train_concise(wd):
     net = nn.Sequential(nn.Linear(num_inputs, 1))
     for param in net.parameters():
         param.data.normal_()
     loss = nn.MSELoss(reduction='none')
     num_epochs, lr = 100, 0.003
-    # 偏置参数没有衰减
+    # 偏置参数没有衰减，在下⾯的代码中，我们在实例化优化器时直接通过weight_decay指定weight decay超参数。默认情况下，
+    #PyTorch同时衰减权重和偏移。这⾥我们只为权重设置了weight_decay，所以偏置参数b不会衰减。
     trainer = torch.optim.SGD([{"params":net[0].weight,'weight_decay': wd},{"params":net[0].bias}], lr=lr)
     animator = d2l.Animator(xlabel='epochs', ylabel='loss', yscale='log',
     xlim=[5, num_epochs], legend=['train', 'test'])
@@ -56,3 +58,7 @@ def train_concise(wd):
         if (epoch + 1) % 5 == 0:
             animator.add(epoch + 1,(d2l.evaluate_loss(net, train_iter, loss),d2l.evaluate_loss(net, test_iter, loss)))
     print('w的L2范数：', net[0].weight.norm().item())
+'''
+    深度学习框架为了便于我们使⽤权重衰减，将权重衰减集成到优化算法中，以便与任何损失函数结合使⽤。此外，这种集成还有计算上的好处，允许在不增加任何额外的计算
+    开销的情况下向算法中添加权重衰减。由于更新的权重衰减部分仅依赖于每个参数的当前值，因此优化器必须⾄少接触每个参数⼀次。
+'''
