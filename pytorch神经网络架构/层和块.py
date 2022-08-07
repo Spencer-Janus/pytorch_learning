@@ -33,18 +33,20 @@ class MySequential(nn.Module):
         return X
 net=MySequential(nn.Linear(20,256),nn.ReLU(),nn.Linear(256,10))
 net(X)
-#3.nn.Moudle和sequential 可以嵌套使用
-
-
-
-
-
-
-
-
-
-
-
+#或者
+class MySequential(nn.Module):
+    def __init__(self, *args):
+        super().__init__()
+        for idx, module in enumerate(args): #ennumerate会给迭代元素打上标记01 xx 02 xx
+        # 这⾥，module是Module⼦类的⼀个实例。我们把它保存在'Module'类的成员
+        # 变量_modules中。module的类型是OrderedDict
+            self._modules[str(idx)] = module
+        def forward(self, X):
+        # OrderedDict保证了按照成员添加的顺序遍历它们
+            for block in self._modules.values():
+                X = block(X)
+            return X
+#3.nn.Moudle和sequential 可以嵌套使用 在自定义的层里加self.xx=nn.sequential()即可
 
 
 '''
@@ -52,5 +54,7 @@ net(X)
 module两个重要的函数：init forward
 2.使用nn.Module方法比sequential更加灵活
 3.net(x)相当于net.__call__(x),而__call__(x)调用了forward(x)(python语法糖)
+4.enumerate 会给迭代的元素打上标记
+
 
 '''
