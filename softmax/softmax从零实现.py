@@ -134,3 +134,10 @@ def train_ch3(net, train_iter, test_iter, loss, num_epochs, updater):
     train_loss, train_acc = train_metrics
 num_epochs = 10
 train_ch3(net, train_iter, test_iter, cross_entropy, num_epochs, updater)
+'''
+3.2 Pytorch实现nn.CrossEntropyLoss
+实际使用中需要注意几点:
+
+torch.nn.CrossEntropyLoss(input, target)中的标签target使用的不是one-hot形式，而是类别的序号。形如 target = [1, 3, 2] 表示3个样本分别属于第1类、第3类、第2类。（单标签多分类问题）
+torch.nn.CrossEntropyLoss(input, target)的input是没有归一化的每个类的得分，而不是softmax之后的分布。
+'''
