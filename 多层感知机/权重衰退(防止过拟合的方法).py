@@ -4,6 +4,9 @@ Created on Fri Jul 29 15:48:27 2022
 
 @author: Janus_yu
 """
+'''
+通过限制参数值的选择范围来控制模型容量
+'''
 import torch
 from torch import nn
 from d2l import torch as d2l
