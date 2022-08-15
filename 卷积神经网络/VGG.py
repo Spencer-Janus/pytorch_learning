@@ -40,7 +40,8 @@ for blk in net:
 # train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size, resize=224)
 # d2l.train_ch6(net, train_iter, test_iter, num_epochs, lr, d2l.try_gpu())
 '''
-经验之谈：长宽减少一半，通道增加一倍
+vgg：块的思想（一个卷积接一个池化，规定块里卷积层的个数）
+经验之谈：一个块后长宽减少一半，通道增加一倍
 '''
         
         
